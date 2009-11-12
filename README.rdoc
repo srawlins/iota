@@ -1,0 +1,30 @@
+=Summary
+
+Iota is a Ruby module that emulates the iota keyword(?) from Google's Go
+programming language. Here is the example from golang.org/doc/effective_go.html:
+ type ByteSize float64
+ const (
+   _ = iota;	// ignore first value by assigning to blank identifier
+   KB ByteSize = 1<<(10*iota);
+   MB;
+   GB;
+   TB;
+   PB;
+   YB;
+ )
+The equivalent Ruby Iota code is:
+ require 'iota'
+ include Iota
+ set_iota 1
+ iota(%w(KB MB GB TB PB YB)) do |i|
+   1 << i * 10
+ end
+MarkCC gives a simpler example:
+ type Color int; const ( RED Color = iota; ORANGE = iota; YELLOW = iota;
+ GREEN = iota; BLUE = iota; INDIGO = iota; VIOLET = iota; )
+And the Ruby Iota code:
+ RED = iota; ORANGE = iota; YELLOW = iota; GREEN = iota; BLUE = iota; INDIGO = iota; VIOLET = iota
+OK, but that is painfully inefficient. Let's go back to the array notation:
+ iota %w(RED ORANGE YELLOW GREEN BLUE INDIGO VIOLET)
+Aaand... that's all. This is of course one of the least innovative things about
+the Go language, but we can perhaps strive to implement more.
